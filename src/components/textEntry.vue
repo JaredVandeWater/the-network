@@ -1,9 +1,15 @@
 <template>
   <div class="col">
-    <form>
-      <div class="d-flex flex-column" v-if="user.isAuthenticated">
+    <form @submit.prevent="create" v-if="user.isAuthenticated">
+      <div class="d-flex flex-column">
         <label for="exampleInputEmail1">What's on your mind?</label>
-        <textarea class="form-control" id="posttext" placeholder="Text..." rows="4" maxlength="100"></textarea>
+        <textarea v-model="state.newPost.body"
+                  class="form-control"
+                  id="textentry"
+                  placeholder="Text..."
+                  rows="4"
+                  maxlength="100"
+        ></textarea>
         <button type="submit" class="btn btn-primary">
           Post
         </button>
@@ -15,25 +21,30 @@
 <script>
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import Notification from '../utils/Notification'
+import { postsService } from '../services/PostsService'
 export default {
   name: 'TextEntry',
   setup() {
     const state = reactive({
-      dropOpen: false
+      newPost: {}
     })
     return {
       state,
       user: computed(() => AppState.user),
-      onMounted(async() => {
-      try {
-        await postsService.getAll()
-      } catch (error) {
-        Notification.toast('Error: ' + error, 'error')
+      create() {
+        try {
+          postsService.create(state.newPost)
+          state.newPost = {}
+          Notification.toast('Added Post', 'success')
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
       }
-    })
     }
   }
 }
+
 </script>
 
 <style scoped>

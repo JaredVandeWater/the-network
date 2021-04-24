@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import router from '../router'
 import { api } from './AxiosService'
 
 class PostsService {
@@ -24,9 +23,8 @@ class PostsService {
   }
 
   async create(data) {
-    const res = await api.post('api/projects', data)
-    router.push({ name: 'ProjectDetails', params: { id: res.data.id } })
-    // this.getAll()
+    await api.post('api/posts', data)
+    this.getAll()
   }
 }
 
