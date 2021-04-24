@@ -3,7 +3,15 @@
     <div class="row">
       <div class="col-md-6 col">
         <TextEntry />
-        <!-- <Post v-for="post in state.posts" :key="post.id" :post="post" /> -->
+        <Post v-for="post in state.posts" :key="post.id" :post="post" />
+        <div>
+          <button @click="getNewer" class="btn btn-info">
+            Newer
+          </button>
+          <button @click="getOlder" class="btn btn-info">
+            Older
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -28,7 +36,25 @@ export default {
       }
     })
     return {
-      state
+      state,
+      async getNewer() {
+        try {
+          if (AppState.newer !== null) {
+            await postsService.getNewerPosts()
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      },
+      async getOlder() {
+        try {
+          if (AppState.older !== null) {
+            await postsService.getOlderPosts()
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      }
     }
   }
 }

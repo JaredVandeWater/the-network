@@ -15,7 +15,7 @@
                   </h5>
                 </div>
                 <div class="col-2 d-flex justify-content-end" v-if="user.isAuthenticated && account.id === post.creator.id">
-                  <button class="btn btn-danger">
+                  <button @click="remove(post)" class="btn btn-danger">
                     X
                   </button>
                 </div>
@@ -30,7 +30,18 @@
         </div>
       </div>
       <div class="row justify-content-center pt-3">
-        {{ post.body }}
+        <div class="col">
+          {{ post.body }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-end">
+          <button @click="likePost(post)" class="btn btn-secondary">
+            <p class="m-0">
+              Like <span>{{ post.likes.length }}</span>
+            </p>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -39,6 +50,8 @@
 <script>
 import { computed } from 'vue'
 import { AppState } from '../AppState'
+import { postsService } from '../services/PostsService'
+import Notification from '../utils/Notification'
 export default {
   name: 'Post',
   props: {
@@ -50,9 +63,25 @@ export default {
   setup() {
     return {
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       cleanTime(post) {
         const newTime = post.substr(11, 5)
         return newTime
+      },
+      async remove(post) {
+        try {
+          await postsService.remove(post.id)
+          Notification.toast('Removed Post', 'success')
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      },
+      async likePost(post) {
+        try {
+          await postsService.likePost(post.id)
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
       }
     }
   }

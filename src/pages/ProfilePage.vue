@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6 col">
         <Profile />
-        <!-- <Post v-for="post in state.posts" :key="post.id" :post="post" /> -->
+        <Post v-for="post in state.posts" :key="post.id" :post="post" />
       </div>
     </div>
   </div>
