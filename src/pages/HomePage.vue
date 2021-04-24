@@ -1,0 +1,45 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col">
+        <Post v-for="post in state.posts" :key="post.id" :post="post" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { computed, onMounted, reactive } from 'vue'
+import { AppState } from '../AppState'
+import Notification from '../utils/Notification'
+import { postsService } from '../services/PostsService'
+export default {
+  name: 'Home',
+  setup() {
+    const state = reactive({
+      posts: computed(() => AppState.posts)
+    })
+    onMounted(async() => {
+      try {
+        await postsService.getAll()
+      } catch (error) {
+        Notification.toast('Error: ' + error, 'error')
+      }
+    })
+    return {
+      state
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.home{
+  text-align: center;
+  user-select: none;
+  > img{
+    height: 200px;
+    width: 200px;
+  }
+}
+</style>
