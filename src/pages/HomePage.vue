@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col">
+        <TextEntry />
         <Post v-for="post in state.posts" :key="post.id" :post="post" />
       </div>
     </div>
@@ -34,12 +35,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home{
-  text-align: center;
-  user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
-  }
-}
+
 </style>

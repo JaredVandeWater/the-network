@@ -1,15 +1,27 @@
 <template>
   <div>
-    <div class="card">
-      <img class="rounded-circle w-100" :src="post.creator.picture" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">
-          Card title
-        </h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="container m-3 p-2 shadow">
+      <div class="row">
+        <div class="col-2">
+          <img class="rounded-circle my-profile-pic" :src="post.creator.picture" alt="Card image cap">
+        </div>
+        <div class="col">
+          <div class="row flex-column">
+            <div class="col">
+              <h5>
+                {{ post.creator.name }}
+              </h5>
+            </div>
+            <div class="col">
+              <h5 class="font-weight-light">
+                {{ cleanTime(post.createdAt) }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        {{ post.body }}
       </div>
     </div>
   </div>
@@ -25,11 +37,18 @@ export default {
     }
   },
   setup() {
-    return {}
+    return {
+      cleanTime(post) {
+        const newTime = post.substr(11, 5)
+        return newTime
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.my-profile-pic{
+  width: 3rem
+}
 </style>

@@ -30,11 +30,8 @@
           Login
         </button>
 
-        <div class="dropdown" v-else>
-          <div
-            class="dropdown-toggle"
-            @click="state.dropOpen = !state.dropOpen"
-          >
+        <div v-else>
+          <div>
             <img
               :src="user.picture"
               alt="user photo"
@@ -43,16 +40,7 @@
             />
             <span class="mx-3">{{ user.name }}</span>
           </div>
-          <div
-            class="dropdown-menu p-0 list-group w-100"
-            :class="{ show: state.dropOpen }"
-            @click="state.dropOpen = false"
-          >
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
-                Account
-              </div>
-            </router-link>
+          <div>
             <div
               class="list-group-item list-group-item-action hoverable"
               @click="logout"
