@@ -3,7 +3,13 @@
     <div class="container m-3 pb-4 pt-2 shadow">
       <div class="row">
         <div class="col-2">
-          <img class="rounded-circle my-profile-pic" :src="post.creator.picture" alt="Card image cap">
+          <router-link :to="{ name: 'Profile', params: {id: post.creatorId} }">
+            <img
+              class="rounded-circle my-profile-pic"
+              :src="post.creator.picture"
+              alt="Card image cap"
+            >
+          </router-link>
         </div>
         <div class="col">
           <div class="row flex-column">

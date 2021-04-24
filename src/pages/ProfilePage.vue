@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-6 col">
         <Profile />
-        <Post v-for="post in state.posts" :key="post.id" :post="post" />
       </div>
     </div>
   </div>
@@ -15,7 +14,7 @@ import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { postsService } from '../services/PostsService'
 export default {
-  name: 'ProfilePage',
+  name: 'Profile',
   setup() {
     const state = reactive({
       posts: computed(() => AppState.posts)
