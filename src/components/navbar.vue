@@ -1,27 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/smily-web-icon.png"
-          height="60"
-        />
-      </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon" />
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <span class="navbar-text">
+  <nav class="navbar-dark bg-dark container-fluid">
+    <div class="row">
+      <div class="col-4">
         <button
           class="btn btn-outline-primary text-uppercase"
           @click="login"
@@ -31,25 +11,46 @@
         </button>
 
         <div v-else>
-          <div>
-            <img
-              :src="user.picture"
-              alt="user photo"
-              height="40"
-              class="rounded"
-            />
-            <span class="mx-3">{{ user.name }}</span>
-          </div>
-          <div>
-            <div
-              class="list-group-item list-group-item-action hoverable"
-              @click="logout"
-            >
-              logout
+          <div class="d-flex">
+            <div>
+              <!-- <img
+                :src="user.picture"
+                alt="user photo"
+                height="40"
+                class="rounded"
+              /> -->
+              <!-- <span class="mx-3">{{ user.name }}</span> -->
+            </div>
+            <div>
+              <button
+                class="btn btn-outline-primary text-uppercase"
+                @click="logout"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
-      </span>
+      </div>
+      <div class="col-4">
+        <router-link :to="{ name: 'Home' }">
+          <div class="d-flex justify-content-around">
+            <img
+              alt="logo"
+              src="../assets/img/smily-web-icon.png"
+              height="60"
+            />
+          </div>
+        </router-link>
+      </div>
+      <div class="col-4">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
     </div>
   </nav>
 </template>

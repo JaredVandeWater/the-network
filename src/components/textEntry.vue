@@ -1,21 +1,19 @@
 <template>
-  <div class="col">
-    <form @submit.prevent="create" v-if="user.isAuthenticated">
-      <div class="d-flex flex-column">
-        <label for="exampleInputEmail1">What's on your mind?</label>
-        <textarea v-model="state.newPost.body"
-                  class="form-control"
-                  id="textentry"
-                  placeholder="Text..."
-                  rows="4"
-                  maxlength="100"
-        ></textarea>
-        <button type="submit" class="btn btn-primary">
-          Post
-        </button>
-      </div>
-    </form>
-  </div>
+  <form @submit.prevent="create" v-if="user.isAuthenticated">
+    <div class="d-flex flex-column">
+      <label for="exampleInputEmail1">What's on your mind?</label>
+      <textarea v-model="state.newPost.body"
+                class="form-control"
+                id="textentry"
+                placeholder="Text..."
+                rows="4"
+                maxlength="100"
+      ></textarea>
+      <button type="submit" class="btn btn-primary">
+        Post
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
