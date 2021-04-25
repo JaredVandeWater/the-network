@@ -2,8 +2,10 @@
   <div>
     <div class="container m-3 pb-4 pt-2 shadow">
       <div class="row">
-        <div class="col-2">
+        <div class="col-4">
           <img class="rounded-circle my-profile-pic" v-if="profile" :src="profile.picture" alt="Card image cap">
+        </div>
+        <div class="col">
         </div>
       </div>
     </div>

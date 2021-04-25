@@ -38,14 +38,14 @@
             <img
               alt="logo"
               src="../assets/img/smily-web-icon.png"
-              height="60"
+              height="80"
             />
           </div>
         </router-link>
       </div>
       <div class="col-4">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form @submit.prevent="router.push({ name: 'SearchResultsPage', params: { query: state.query } })" class="form-inline my-2 my-lg-0">
+          <input v-model="state.query" class="form-control mr-sm-2" type="search" placeholder="Search" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
@@ -59,14 +59,18 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
   name: 'Navbar',
   setup() {
+    const router = useRouter()
     const state = reactive({
+      query: '',
       dropOpen: false
     })
     return {
       state,
+      router,
       user: computed(() => AppState.user),
       async login() {
         AuthService.loginWithPopup()

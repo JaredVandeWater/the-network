@@ -1,14 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="col-md-7 col">
+        <Post v-for="post in state.searchedPosts" :key="post.id" :post="post" />
+      </div>
       <div class="col">
         <img :src="(state.commercial[0] ? state.commercial[0].tall : '')" alt="">
-      </div>
-      <div class="col-md-6 col">
-        <img :src="(state.commercial[1] ? state.commercial[1].banner : '')" alt="">
-        <Profile />
-        <Post v-for="post in profilePosts" :key="post.id" :post="post" />
-        <OlderNewerProf />
+        <img :src="(state.commercial[1] ? state.commercial[1].tall : '')" alt="">
       </div>
     </div>
   </div>
@@ -18,22 +16,24 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
-import { profilesService } from '../services/ProfilesService'
+import { searchResultsService } from '../services/SearchResultsService'
 import { commercialsService } from '../services/CommercialsService'
 import { useRoute } from 'vue-router'
 export default {
-  name: 'ProfilePage',
+  name: 'SearchResultsPage',
   setup() {
     const route = useRoute()
     const state = reactive({
-      posts: computed(() => AppState.posts),
+      searchedPosts: computed(() => AppState.searchedPosts),
       commercial: computed(() => AppState.currentAds)
     })
+
+    // REVIEW why does the search not work on the search page? its on the navbar
     onMounted(async() => {
       AppState.currentAds = []
+      AppState.searchedPosts = []
       try {
-        AppState.currentProfilePosts = []
-        await profilesService.getAllByOneProfile(route.params.id)
+        await searchResultsService.getAllByQuery(route.params.query)
       } catch (error) {
         Notification.toast('Error: ' + error, 'error')
       }

@@ -16,6 +16,12 @@ const routes = [
     name: 'ProfilePage',
     component: loadPage('ProfilePage'),
     beforeEnter: authGuard
+  },
+  {
+    path: '/search/:query',
+    name: 'SearchResultsPage',
+    component: loadPage('SearchResultsPage'),
+    beforeEnter: authGuard
   }
 ]
 
