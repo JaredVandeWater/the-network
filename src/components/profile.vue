@@ -13,13 +13,22 @@
 <script>
 import { computed } from 'vue'
 import { AppState } from '../AppState'
+import { useRoute } from 'vue-router'
+import { profilesService } from '../services/ProfilesService'
 
 export default {
   name: 'Profile',
   setup() {
+    const route = useRoute()
     return {
       user: computed(() => AppState.user),
-      account: computed(() => AppState.account)
+      getProfileById() {
+        try {
+          profilesService.getProfileById(route.params.id)
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      }
     }
   }
 }
