@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-6 col">
         <Profile />
-        <Post v-for="post in state.posts" :key="post.id" :post="post" />
-        <OlderNewer />
+        <Post v-for="post in profilePosts" :key="post.id" :post="post" />
+        <OlderNewerProf />
       </div>
     </div>
   </div>
@@ -25,13 +25,15 @@ export default {
     })
     onMounted(async() => {
       try {
+        AppState.currentProfilePosts = []
         await profilesService.getAllByOneProfile(route.params.id)
       } catch (error) {
         Notification.toast('Error: ' + error, 'error')
       }
     })
     return {
-      state
+      state,
+      profilePosts: computed(() => AppState.currentProfilePosts)
     }
   }
 }
