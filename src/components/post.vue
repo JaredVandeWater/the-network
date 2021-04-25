@@ -3,7 +3,7 @@
     <div class="container m-3 pb-4 pt-2 shadow">
       <div class="row">
         <div class="col-2">
-          <router-link :to="{ name: 'Profile', params: {id: post.creatorId} }">
+          <router-link :to="{ name: 'ProfilePage', params: {id: post.creatorId} }">
             <img
               class="rounded-circle my-profile-pic"
               :src="post.creator.picture"
@@ -70,9 +70,9 @@ export default {
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      cleanTime(post) {
-        const newTime = post.substr(11, 5)
-        return newTime
+      cleanTime(postTime) {
+        const newTime = new Date(postTime)
+        return newTime.toLocaleTimeString()
       },
       async remove(post) {
         try {

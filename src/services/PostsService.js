@@ -28,16 +28,6 @@ class PostsService {
     AppState.activeProject = res.data
   }
 
-  async getMyProjects() {
-    const res = await api.get(`api/projects?creatorId=${AppState.account.id}`)
-    AppState.myProjects = res.data
-  }
-
-  async getByProfileId(id) {
-    const res = await api.get(`api/projects?creatorId=${id}`)
-    AppState.activeProjects = res.data
-  }
-
   async remove(id) {
     await api.delete('api/posts/' + id)
     this.getAll()
